@@ -1,9 +1,14 @@
 # HomematicCCU2-GoogleDriveBackup
-Sichert Daten von der Homematic CCU2 auf Google Drive
+Zeitgesteuerte Datensicherung von der Homematic CCU2 Zentrale auf einen Google Drive Account.
 
 ## Einleitung
-TODO
+Mit diesem Skript lassen sich Daten von einer CCU2 Zentrale des Smart-Home Systems Homematic der Firma eQ-3 auf einem Google Drive Account sichern. Dabei lässt sich das Skript entweder über die Homematic Weboberfläche mittels Programmverknüpfung und dem Zeitmodul der Homematic steuern oder kann - unabhängig - direkt als Cronjob auf der CCU2 laufen. Das TCL-Skript kommt dabei ohne weitere Bibliotheken oder Abhängigkeiten aus. 
 
+ 1. Einrichten der Google Developer Console
+ 2. Einrichten von Google Drive 
+ 3. Anpassungen im Skript
+ 4. Einrichten des Backups auf der CCU2
+ 
 ## Voraussetzungen
 Folgende Voraussetzungen werden für das Projekt benötigt:
 - Google Account
