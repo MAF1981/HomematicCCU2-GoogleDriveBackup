@@ -58,6 +58,33 @@ Der aktuelle Benutzer ist jetzt für die Google Drive API freigeschalten und kan
 #### Schritt 4: Google Drive API Authentifizierung ####
 Nun ist der Benutzer zwar für die Google Drive API freigeschalten, kann Sie aber noch nicht verwenden, da man sich bei der API authentifizieren muss. Dazu benötigen wir neue `Credentials`, die sich auf der Übersichtsseite über die entsprechenden Links anlegen lassen.
 
+<img src="https://user-images.githubusercontent.com/26480749/32270533-90ec3806-bef6-11e7-8c0e-ac7284b14968.jpg" border="0">
+
+Beim Anlegen der neuen `Credentials` entscheiden wir uns für den Punkt `OAuth client ID`:
+
+<img src="https://user-images.githubusercontent.com/26480749/32270536-91323a86-bef6-11e7-90aa-dc04ea478fe1.jpg" border="0">
+
+Bevor wir nun aber eine neue **client ID** anlegen können, werden wir aufgefordert, den `Consent screen` zu konfigurieren. Hierbei handelt es sich um einige Angaben, die für die OAuth Zertifizierung benötigt werden. Also klicken wir auf den entsprechenden Knopf `Configure consent screen`: 
+
+<img src="https://user-images.githubusercontent.com/26480749/32270537-91525d2a-bef6-11e7-9434-d4980764ce33.jpg" border="0">
+
+Viele Felder sind optional und für unsere Zwecke auch nicht relevant, allerdings ist der Produktname obligatorisch. Da die Email-Adresse bereits voreingestellt ist, vergeben wir folgenden Namen bei `Product name shown to users`: **Homematic Backup**
+
+<img src="https://user-images.githubusercontent.com/26480749/32270539-91a67130-bef6-11e7-8f9e-46209e95a5a5.jpg" border="0">
+
+Nachdem wir unsere Einstellungen gespeichert haben, wird uns wieder die vorherige Ansicht angezeigt, allerdings können wir nun einen `Application type` auswählen. Für unsere Zwecke selektieren wir hier den Wert **Web application** und vergeben noch einen Namen: **Homematic CCU2 Zentrale**
+
+<img src="https://user-images.githubusercontent.com/26480749/32270540-91ca1c7a-bef6-11e7-8a40-9ddf51e97459.jpg" border="0">
+
+Sobald wir nun auf `Create` klicken und uns die Anmeldeinformationen erzeugen lassen, werden diese danach in einem Popup angezeigt:
+
+<img src="https://user-images.githubusercontent.com/26480749/32270524-8f9dafd4-bef6-11e7-9513-5074ba6bb96e.jpg" border="0">
+
+Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für uns. Diese müssen wir uns kopieren, da wir sie später in das TCL-Skript einfügen werden:
+> **client ID:** 346571031919-1ah7notaarq75dalaid32hceb226nl4p.apps.googleusercontent.com
+
+> **client secret:** uXkYrz_oSE-Miptql89ue_8Y
+
 
 ### Google Drive Einrichten ###
 Dieses Kapitel dient hautpsächlich dazu, dass das später verwendete Beispiel nachvollziehbar ist/bleibt. Bei der Anpassung des eigentlichen TCL-Skriptes wird sich auf diesen Punkt bezogen. In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
