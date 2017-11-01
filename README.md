@@ -27,8 +27,7 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 ```
 Als Ergebnis liefert das Programm folgende Ausgabe:
 ```
-Google Drive Backup gestartet...
-Get request authorization code
+Hole Device-Code + User-Code fuer den Google-Client
 Response: {
   "verification_url" : "https://www.google.com/device",
   "expires_in" : 1800,
@@ -38,9 +37,8 @@ Response: {
 ```
 **Wichtig in dieser Ausgabe sind folgende Werte:** `device_code` **und** `user_code`**!**
 
-4. Den `device_code` kopieren und in das TCL-Script als Wert für den Parameter `homematic_device_code` setzen (Speichern und erneut auf die CCU2 hochladen nicht vergessen). 
-5. Die Seite https://www.google.com/device aufrufen und dort den `user_code` eingeben
-muss mit diesen Schlüsseln ein Webservice der Google Drive API aufgerufen werden, welcher eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Mit dem Geräte-Code muss 
+4. Den `device_code` kopieren und in das TCL-Skript als Wert für den Parameter `homematic_device_code` setzen (speichern und erneut auf die CCU2 hochladen nicht vergessen). 
+5. Die Seite https://www.google.com/device aufrufen, dort den `user_code` eingeben und dann bestätigen, dass man das Gerät (`device_code`) mit dem Google Account verbinden möchte.
 
 
 ## Schritt-für-Schritt Anleitung
