@@ -17,6 +17,10 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 - FTP Zugriff auf die Homematic CCU2 (bpsw. FileZilla)
 - SSH Zugriff auf die Homematic CCU2 (bspw. PuTTY)
 
+## Kurzanleitung
+In der Google Developer Console muss die Google Drive API aktiviert und dazu ein OAuth 2.0 Client (Web-Applikation) angelegt werden. Der enthält die benötigten `client ID` und `client secret` Schlüssel. Von der Homematic CCU2 muss mit diesen Schlüsseln ein Webservice der Google Drive API aufgerufen werden, welcher eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Mit dem Geräte-Code muss 
+
+
 ## Schritt-für-Schritt Anleitung
 Im Folgenden wird Schrittweise erklärt, welche Einstellungen vorgenommen und welche Parameter gesetzt werden müssen, damit das automatische Backup nach Google Drive funktioniert.
 
