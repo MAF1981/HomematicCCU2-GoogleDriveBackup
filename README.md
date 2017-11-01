@@ -18,7 +18,7 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 - SSH Zugriff auf die Homematic CCU2 (bspw. PuTTY)
 
 ## Schritt-für-Schritt Anleitung
-Im folgenden wird Schrittweise erklärt, welche Einstellungen vorgenommen und welche Parameter gesetzt werden müssen, damit das automatische Backup nach Google Drive funktioniert.
+Im Folgenden wird Schrittweise erklärt, welche Einstellungen vorgenommen und welche Parameter gesetzt werden müssen, damit das automatische Backup nach Google Drive funktioniert.
 
 ###  Google Developer Console
 **_Text nochmal überarbeiten_**
@@ -42,7 +42,7 @@ Nun vergeben wir bei `Project name` einen Projektnamen, bspw.: **Homematic CCU2*
 
 <img src="https://user-images.githubusercontent.com/26480749/32270531-90a23db4-bef6-11e7-876f-8faa998c3696.jpg" border="0">
 
-Nachdem das Projekt erfolgreich angelegt wurde, landet man nun auf der Übersichtsseite des Projektes. Da wir nun Google Drive verwenden möchten, müssen wir uns für die Google Drive API freischalten.
+Nachdem das Projekt erfolgreich angelegt wurde, landet man nun auf dessen Übersichtsseite. Da wir unsere Dateien von der CCU2 auf Google Drive sichern möchten, müssen wir uns im nächsten Schritt für die Google Drive API freischalten lassen.
 
 #### Schritt 3: Google Drive API aktivieren ####
 Die Google Drive API lässt sich für das Projekt aktivieren, indem man auf der Dashboard-Seite des Projektes über einen der `Library` Links die **Google Drive API** sucht:
@@ -53,10 +53,10 @@ Die API muss nun noch aktiviert werden, indem man auf `Enable` klickt:
 
 <img src="https://user-images.githubusercontent.com/26480749/32270534-9111c1e8-bef6-11e7-8bd8-fbd22d3eab1b.jpg" border="0">
 
-Nun ist der aktuelle Benutzer für die Google Drive API freigeschalten.
+Der aktuelle Benutzer ist jetzt für die Google Drive API freigeschalten und kann sie verwenden.
 
 #### Schritt 4: Google Drive API Authentifizierung ####
-Nun ist der Benutzer zwar für die Nutzung der Google Drive API freigeschalten, kann Sie aber noch nicht verwenden, da man sich bei der API authentifizieren muss. Dazu müssen wir neue `Credentials` anlegen.
+Nun ist der Benutzer zwar für die Google Drive API freigeschalten, kann Sie aber noch nicht verwenden, da man sich bei der API authentifizieren muss. Dazu benötigen wir neue `Credentials`, die sich auf der Übersichtsseite über die entsprechenden Links anlegen lassen.
 
 
 ### Google Drive Einrichten ###
