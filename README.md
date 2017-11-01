@@ -85,6 +85,10 @@ Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für 
 
 > **client secret:** uXkYrz_oSE-Miptql89ue_8Y
 
+Allerdings benötigen wir für das TCL-Skript noch einige weitere Angaben, die ermittelt werden müssen.
+
+#### Geräte-Code ermitteln und für Google Drive freigeben ####
+Dieser Schritt ist erforderlich, da wir nun unsere Homematic CCU2 Zentrale (als Geräte) mit ein eindeutigen ID für die Google Drive API freischalten.
 
 ### Google Drive Einrichten ###
 Dieses Kapitel dient hautpsächlich dazu, dass das später verwendete Beispiel nachvollziehbar ist/bleibt. Bei der Anpassung des eigentlichen TCL-Skriptes wird sich auf diesen Punkt bezogen. In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
