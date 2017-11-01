@@ -21,7 +21,7 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 1. In der Google Developer Console (http://console.developers.google.com) die Google Drive API aktivieren und dazu einen OAuth 2.0 Client (Web-Applikation) anlegen um  `client ID` und `client secret` Schlüssel zu bekommen.
 2. TCL-Skript öffnen und als Werte für die Parameter `google_client_id` und `google_client_secret` die Werte des OAuth 2.0 Clients setzen.
 2. TCL-Skript in ein Verzeichnis auf die Homematic CCU2 hochladen (bspw. `/usr/local/gdrive`) und Verzeichnis + TCL-Skript mit folgenden Berechtigungen versehen (`CHMOD`): **755**
-3. Mit PuTTY auf die Homematic CCU2 einloggen, in das Verzeichnis (`/usr/local/gdrive`) des TCL-Skriptes wechseln und dann folgenden Befehl ausführen:
+3. Mit PuTTY auf die Homematic CCU2 einloggen, in das Verzeichnis (`/usr/local/gdrive`) des TCL-Skriptes wechseln und dann folgenden Befehl ausführen (Parameter `-dc` am Ende):
 ```
 # tclsh ./gdrive_backup.tcl -dc
 ```
@@ -38,9 +38,9 @@ Response: {
 ```
 **Wichtig in dieser Ausgabe sind folgende Werte:** `device_code` **und** `user_code`**!**
 
-4. Den `device_code` kopieren und in das TCL-Skript als Wert für den Parameter `homematic_device_code` setzen (speichern und erneut auf die CCU2 hochladen nicht vergessen). 
+4. Den `device_code` kopieren und in das TCL-Skript als Wert für den Parameter `homematic_device_code` setzen (Speichern und erneut auf die CCU2 hochladen nicht vergessen). 
 5. Die Seite https://www.google.com/device aufrufen, dort den `user_code` eingeben und dann bestätigen, dass man das Gerät (=unsere Homematic CCU2) mit dem Google Account verbinden möchte.
-6. Erneut mit PuTTY auf der Homematic CCU2 das TCL-Skript ausführen - diesmal mit folgendem Parameter:
+6. Erneut mit PuTTY auf der Homematic CCU2 das TCL-Skript ausführen - diesmal mit folgendem Parameter (`-rt`):
 ```
 # tclsh ./gdrive_backup.tcl -rt
 ```
@@ -54,8 +54,10 @@ Response: {
 }
 ```
 **Wichtig in dieser Ausgabe ist der Wert für:** `refresh_token`**!**
-Diesen kopieren wir wieder und setzen ihn im TCL-Skript als Wert der Variablen `google_refresh_token`. Nun haben wir alle erforderlichen Parameter für ein erfolgreiches Backup von der Homematic CCU2.
+Diesen kopieren wir wieder und setzen ihn im TCL-Skript als Wert der Variablen `google_refresh_token`. Erneut Speichern und auf die Homematic CCU2 hochladen.
+7. Sollen die Backups in einem bestimmten Unterordner auf Google Drive landen (also nicht im Root-Verzeichnis), benötigen wir noch den Ordnernamen. Dazu loggen wir uns in Google Drive ein, navigieren zum gewünschten Ordner und kopieren uns den Namen aus der URL-Browserleiste. Eingefügt wird der Name (bzw. die kryptische Zeichenkette) in das TCL-Skript als Wert der Variablen `google_drive_backup_folder`.
 
+**Nun haben wir alle erforderlichen Parameter für ein erfolgreiches Backup von der Homematic CCU2 gesammelt und in dem TCL-Skript zur Verfügung.** Wie man das Skript ausführt und welche Einstellungen man treffen kann, steht im Kapitel "Einrichten des Backups auf der CCU2".
 
 ## Schritt-für-Schritt Anleitung
 Im Folgenden wird Schrittweise erklärt, welche Einstellungen vorgenommen und welche Parameter gesetzt werden müssen, damit das automatische Backup nach Google Drive funktioniert.
