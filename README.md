@@ -27,7 +27,7 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 ```
 Als Ergebnis liefert das Programm folgende Ausgabe:
 ```
-Hole Device-Code + User-Code fuer den Google-Client
+Hole Device-Code + User-Code fuer den Google-Client: 346571031919-q77s2rpk4ntm0s70mdopbjb42t9o7349.apps.googleusercontent.com
 Response: {
   "verification_url" : "https://www.google.com/device",
   "expires_in" : 1800,
