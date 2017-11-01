@@ -55,6 +55,7 @@ Response: {
 ```
 **Wichtig in dieser Ausgabe ist der Wert für:** `refresh_token`**!**
 Diesen kopieren wir wieder und setzen ihn im TCL-Skript als Wert der Variablen `google_refresh_token`. Erneut Speichern und auf die Homematic CCU2 hochladen.
+
 7. Sollen die Backups in einem bestimmten Unterordner auf Google Drive landen (also nicht im Root-Verzeichnis), benötigen wir noch den Ordnernamen. Dazu loggen wir uns in Google Drive ein, navigieren zum gewünschten Ordner und kopieren uns den Namen aus der URL-Browserleiste. Eingefügt wird der Name (bzw. die kryptische Zeichenkette) in das TCL-Skript als Wert der Variablen `google_drive_backup_folder`.
 
 **Nun haben wir alle erforderlichen Parameter für ein erfolgreiches Backup von der Homematic CCU2 gesammelt und in dem TCL-Skript zur Verfügung.** Wie man das Skript ausführt und welche Einstellungen man treffen kann, steht im Kapitel "Einrichten des Backups auf der CCU2".
