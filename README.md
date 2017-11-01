@@ -18,7 +18,16 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 - SSH Zugriff auf die Homematic CCU2 (bspw. PuTTY)
 
 ## Kurzanleitung
-In der Google Developer Console muss die Google Drive API aktiviert und dazu ein OAuth 2.0 Client (Web-Applikation) angelegt werden. Der enthält die benötigten `client ID` und `client secret` Schlüssel. Von der Homematic CCU2 muss mit diesen Schlüsseln ein Webservice der Google Drive API aufgerufen werden, welcher eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Mit dem Geräte-Code muss 
+1. In Google Developer Console (http://console.developers.google.com) die Google Drive API aktivieren und dazu einen OAuth 2.0 Client (Web-Applikation) anlegen um  `client ID` und `client secret` Schlüssel zu bekommen
+2. TCL-Skript öffnen und als Werte für die Parameter `google_client_id` und `google_client_secret` die Werte des OAuth 2.0 Clients setzen.
+2. TCL-Skript in ein Verzeichnis auf die Homematic CCU2 hochladen (bspw. `/usr/local/gdrive`) und Verzeichnis + TCL-Skript mit folgenden Berechtigungen versehen (`CHMOD`): **755**
+3. Mit PuTTY auf die Homematic CCU2 einloggen, in das Verzeichnis (`/usr/local/gdrive`) des TCL-Skriptes wechseln und dann folgenden Befehl ausführen:
+```
+>tclsh ./gdrive_backup -r
+```
+
+
+muss mit diesen Schlüsseln ein Webservice der Google Drive API aufgerufen werden, welcher eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Mit dem Geräte-Code muss 
 
 
 ## Schritt-für-Schritt Anleitung
