@@ -23,10 +23,23 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 2. TCL-Skript in ein Verzeichnis auf die Homematic CCU2 hochladen (bspw. `/usr/local/gdrive`) und Verzeichnis + TCL-Skript mit folgenden Berechtigungen versehen (`CHMOD`): **755**
 3. Mit PuTTY auf die Homematic CCU2 einloggen, in das Verzeichnis (`/usr/local/gdrive`) des TCL-Skriptes wechseln und dann folgenden Befehl ausführen:
 ```
->tclsh ./gdrive_backup -r
+# tclsh ./gdrive_backup.tcl -r
 ```
+Als Ergebnis liefert das Programm folgende Ausgabe:
+```
+Google Drive Backup gestartet...
+Get request authorization code
+Response: {
+  "verification_url" : "https://www.google.com/device",
+  "expires_in" : 1800,
+  "interval" : 5,
+  "device_code" : "AH-1Ng217ZPoz-Mt2xllkmAzCqprWU85LsqBDyVao70Mvd_55rkAzhswl8CVRQyc3qeOVXMUTsIoXm2-5HgMskr9bgwU1Dy8Sg",
+  "user_code" : "FTGJ-KRHC"
+```
+**Wichtig in dieser Ausgabe sind folgende Werte:** `device_code` **und** `user_code`**!**
 
-
+4. Den `device_code` kopieren und in das TCL-Script als Wert für den Parameter `homematic_device_code` setzen (Speichern und erneut auf die CCU2 hochladen nicht vergessen). 
+5. Die Seite https://www.google.com/device aufrufen und dort den `user_code` eingeben
 muss mit diesen Schlüsseln ein Webservice der Google Drive API aufgerufen werden, welcher eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Mit dem Geräte-Code muss 
 
 
