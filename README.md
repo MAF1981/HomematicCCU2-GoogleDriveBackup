@@ -82,13 +82,13 @@ Sobald wir nun auf `Create` klicken und uns die Anmeldeinformationen erzeugen la
 
 Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für uns. Diese müssen wir uns kopieren, da wir sie später in das TCL-Skript einfügen werden:
 > **client ID:** 346571031919-1ah7notaarq75dalaid32hceb226nl4p.apps.googleusercontent.com
-
 > **client secret:** uXkYrz_oSE-Miptql89ue_8Y
 
-Allerdings benötigen wir für das TCL-Skript noch einige weitere Angaben, die ermittelt werden müssen.
+Mit diesen Werten ist es nun möglich über einen Webservice bei Google Drive weitere Informationen anzufordern, die für das TCL-Skript benötigt werden.
 
 #### Schritt 5: Geräte-Code für die CCU2 erzeugen und Geräte bestätigen ####
-Nun müssen wir von unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für das Geräte eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Die Geräte-Id benötigen wir später wieder im TCL-Script und mit dem Geräte-Code muss man die Homematic CCU2 einmalig manuell für die Google Drive API freischalten!
+Nachdem wir `client ID` und `client secret` verfügbar haben, müssen wir damit **von** unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für das Gerät (also unsere Homematic CCU2) eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Die Geräte-Id benötigen wir später wieder im TCL-Script und mit dem Geräte-Code muss man die Homematic CCU2 einmalig manuell über eine Webseite für die Google Drive API freischalten!
+
 
 
 ### Google Drive Einrichten ###
