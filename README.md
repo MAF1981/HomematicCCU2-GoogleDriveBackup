@@ -142,7 +142,7 @@ Im nächsten Schritt führen wir das Skript aus um weitere, erforderliche Inform
 
 #### Schritt 6: Geräte-Code anfordern und Gerät bestätigen ####
 Mit den beiden gesetzten Werten für `google_client_id` und `google_client_secret` können wir **von** unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für unser Gerät (also unsere Homematic CCU2) eine eindeutige Geräte-Id erzeugt und einen Geräte-Code zurückliefert. Die Geräte-Id wird später ebenfalls im TCL-Script benötigt und mit dem Geräte-Code müssen wir unser "Produkt" (der Name aus dem `Consent Screen` - siehe Schritt 4) einmalig manuell über Google's Device Webseite freischalten! Aber auch hier der Reihe nach:
-Zuerst loggen wir uns mit PuTTY auf unsere Homematic CCU2 ein. Der Benutzer sollte am besten Root-Rechte besitzen. Wir wechseln in das Verzeichnis mit dem TCL-Skript und führen es mit folgenden Parametern aus:
+Zuerst loggen wir uns mit PuTTY auf unsere Homematic CCU2 ein. Der Benutzer sollte am besten Root-Rechte besitzen. Wir wechseln in das Verzeichnis mit dem TCL-Skript und führen es mit folgenden Parametern aus (`-dc` am Ende):
 
 > tclsh ./gdrive_backup.tcl -dc
 
@@ -161,12 +161,30 @@ Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: htt
   </td>
  </tr>
  </table>
+ 
 Den `device_code` kopieren wir uns ebenfalls. Nun öffnen wir im FTP-Programm auf der Homematic CCU2 das TCL-Skript und fügen den Wert als Wert für den Parameter `homematic_device_code` ein:
    <img src="https://user-images.githubusercontent.com/26480749/32326612-c6f4327c-bfd3-11e7-9e30-516662949f23.JPG" border="0">
 Die Änderung speichern und das FTP-Programm sollte die Datei automatisch wieder hochladen.
 
+#### Schritt 7: Refresh-Token anfordern ####
+Mit der Angabe des `homematic_device_code` im TCL-Skript sind wir nun in der Lage, uns einen so genannten Access-Token für die Google Drive API zu holen, der uns den Zugriff erlaubt. Allerdings ist so ein Access-Token nur jeweils 60 Minuten gültig (3600 Sekunden), danach müsste die ganze Prozedur wiederholt werden. Daher sendet aber Google einen weiteren Token mit, den **Refresh-Token**. Mit ihm ist es möglich, jederzeit einen weiteren Access-Token anzufordern, ohne eben alle 60 Minuten komplett die Schritte 4 bis 6 zu wiederholen. Der Refresh-Token behält seine Gültigkeit, kann aber auch nur dazu genutzt werden, um einen neuen Access-Token zu ermitteln.
+Fordern wir uns also unseren **Refresh-Token** an! Dazu wechseln wir wieder in die PuTTY Konsole und rufen unser TCL-Skript erneut auf, diesmal aber mit dem Parameter `-rt` am Ende:
+
+ > tclsh ./gdrive_backup.tcl -rt
+
+Als Antwort bekommen wir nun folgende Ausgabe:
+<img src="https://user-images.githubusercontent.com/26480749/32327342-7479f79a-bfd6-11e7-911b-abe1b066202f.jpg" border="0">
+
+Hier erhalten wir nun auch unseren `refresh_token`, welcher als letzter Parameter für unser Backup-Skript benötigt wird. Auch diesen Wert kopieren wir uns und öffnen erneut das TCL-Skript im FTP-Programm auf unserer Homematic CCU2. Der Refresh-Token wird nun als Wert für den Parameter `google_refresh_token` gesetzt:
+<img src="https://user-images.githubusercontent.com/26480749/32327527-216e2962-bfd7-11e7-8816-4ab99ff684c6.jpg" border="0">
+
+**Nachdem die Datei gespeichert und wieder auf die Homematic CCU2 hochgeladen wurde ist unser Backup-Script einsatzbereit! :-)** Bevor wir aber damit beginnen, wie man das Skript ausführt und welche zusätzlichen Parameter man noch setzen kann, widmen wir uns kurz noch Google Drive selbst um dort einen Ordner zu erstellen, indem die Backups landen sollen. 
+
 
 ### Google Drive Einrichten ###
+Nachdem wir nun mühsam alle Parameter für ein erfolgreiches Backup ermittelt haben und auch schon alles einsatzbereit ist, fiel dem ein oder anderen im TCL-Skript vielleicht auf, dass es noch einen Parameter `google_drive_backup_folder` gibt. Dieser Parameter kann auf einen beliebigen Ordner in Google Drive verweisen, in den die Backups letztendlich gepspeichert werden. **Wird der Parameter nicht gesetzt, landen alle Backups im Root-Verzeichnis!**
+
+
 Dieses Kapitel dient hautpsächlich dazu, dass das später verwendete Beispiel nachvollziehbar ist/bleibt. Bei der Anpassung des eigentlichen TCL-Skriptes wird sich auf diesen Punkt bezogen. In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
 
 ## Anpassung des Skriptes
