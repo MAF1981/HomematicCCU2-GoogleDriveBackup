@@ -96,10 +96,10 @@ Die API muss nun noch aktiviert werden, indem man auf `Enable` klickt:
 
 <img src="https://user-images.githubusercontent.com/26480749/32270534-9111c1e8-bef6-11e7-8bd8-fbd22d3eab1b.jpg" border="0">
 
-Der aktuelle Benutzer ist jetzt für die Google Drive API freigeschalten und kann sie verwenden.
+Der aktuelle Benutzer ist jetzt für die Google Drive API freigeschalten, kann sie aber noch nicht verwenden.
 
 #### Schritt 4: Google Drive API Authentifizierung ####
-Nun ist der Benutzer zwar für die Google Drive API freigeschalten, kann Sie aber noch nicht verwenden, da man sich bei der API authentifizieren muss. Dazu benötigen wir neue `Credentials`, die sich auf der Übersichtsseite über die entsprechenden Links anlegen lassen.
+Um die soeben aktivierte API auch verwenden zu können, muss man sich an der API authentifizieren. Dazu werden `Credentials` (Anmeldeinformationen) benötigt, welche sich auf der Übersichtsseite über die entsprechenden Link anlegen lassen.
 
 <img src="https://user-images.githubusercontent.com/26480749/32270533-90ec3806-bef6-11e7-8c0e-ac7284b14968.jpg" border="0">
 
@@ -107,25 +107,26 @@ Beim Anlegen der neuen `Credentials` entscheiden wir uns für den Punkt `OAuth c
 
 <img src="https://user-images.githubusercontent.com/26480749/32270536-91323a86-bef6-11e7-90aa-dc04ea478fe1.jpg" border="0">
 
-Bevor wir nun aber eine neue **client ID** anlegen können, werden wir aufgefordert, den `Consent screen` zu konfigurieren. Hierbei handelt es sich um einige Angaben, die für die OAuth Zertifizierung benötigt werden. Also klicken wir auf den entsprechenden Knopf `Configure consent screen`: 
+Bevor wir nun aber eine neue **client ID** anlegen können, werden wir aufgefordert, den `Consent screen` zu konfigurieren. Hierbei handelt es sich um einige Angaben, die für die OAuth 2.0 Zertifizierung benötigt werden. Also klicken wir auf den entsprechenden Knopf `Configure consent screen`: 
 
 <img src="https://user-images.githubusercontent.com/26480749/32270537-91525d2a-bef6-11e7-9434-d4980764ce33.jpg" border="0">
 
-Viele Felder sind optional und für unsere Zwecke auch nicht relevant, allerdings ist der Produktname obligatorisch. Da die Email-Adresse bereits voreingestellt ist, vergeben wir folgenden Namen bei `Product name shown to users`: **Homematic Backup**
+Viele Felder sind optional und für unsere Zwecke auch nicht relevant, allerdings sind Email-Adresse und Produktname obligatorisch. Da die Email-Adresse bereits voreingestellt ist, vergeben wir folgenden Namen bei `Product name shown to users`: **Homematic Backup**
 
 <img src="https://user-images.githubusercontent.com/26480749/32270539-91a67130-bef6-11e7-8f9e-46209e95a5a5.jpg" border="0">
 
-Nachdem wir unsere Einstellungen gespeichert haben, wird uns wieder die vorherige Ansicht angezeigt, allerdings können wir nun einen `Application type` auswählen. Für unsere Zwecke selektieren wir hier den Wert **Web application** und vergeben noch einen Namen: **Homematic CCU2 Zentrale**
+Nachdem wir unsere Einstellungen gespeichert haben, wird uns wieder die vorherige Ansicht angezeigt, allerdings können wir nun einen `Application type` auswählen. Für unsere Zwecke selektieren wir hier den Wert **Other** und vergeben noch einen Namen: **cURL Client Homematic CCU2**
 
-<img src="https://user-images.githubusercontent.com/26480749/32270540-91ca1c7a-bef6-11e7-8a40-9ddf51e97459.jpg" border="0">
+<img src="https://user-images.githubusercontent.com/26480749/32324855-0727ea02-bfcd-11e7-8c13-cb063ffd7d93.jpg" border="0">
 
 Sobald wir nun auf `Create` klicken und uns die Anmeldeinformationen erzeugen lassen, werden diese danach in einem Popup angezeigt:
 
-<img src="https://user-images.githubusercontent.com/26480749/32270524-8f9dafd4-bef6-11e7-9513-5074ba6bb96e.jpg" border="0">
+<img src="https://user-images.githubusercontent.com/26480749/32324857-07814e4e-bfcd-11e7-9914-057176c6bf4b.jpg" border="0">
 
 Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für uns. Diese müssen wir uns kopieren, da wir sie später in das TCL-Skript einfügen werden:
-> **client ID:** 346571031919-1ah7notaarq75dalaid32hceb226nl4p.apps.googleusercontent.com
-> **client secret:** uXkYrz_oSE-Miptql89ue_8Y
+> **client ID:** 346571031919-348lfri1vqsl1dfc0krt4mocpurevd8o.apps.googleusercontent.com
+
+> **client secret:** 133nRfGrMOV6Cqg8OKIjctdw
 
 Mit diesen Werten ist es nun möglich über einen Webservice bei Google Drive weitere Informationen anzufordern, die für das TCL-Skript benötigt werden.
 
