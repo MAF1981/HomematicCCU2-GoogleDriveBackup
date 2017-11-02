@@ -209,12 +209,26 @@ Der interne Name des neu angelegten Ordners ist (Bild rechts): **`0BwzYy3i2kz8Zd
 ## Anpassung des Skriptes
 Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforderlichen Parameter ermittelt haben, geht es nun an die Einrichtung des Backups. Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:
 
-**Beispiel des Skriptaufrufes:**
-> tclsh ./gdrive_backup.tcl /usr/local/logs/logfile.txt,/usr/local/logs/werte.csv,/usr/local/logs/log.txt
+**Beispiel des Skriptaufrufes auf der Kommandozeile der Homematic CCU2:**
+```
+# tclsh ./gdrive_backup.tcl /usr/local/logs/logfile.txt,/usr/local/logs/werte.csv,/usr/local/logs/log.txt
+``` 
 
+### Backup über Homematic CCU2 Programmverknüpfung ###
+Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und jeden Sonntag um 22 Uhr ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
 
-### Backup über Homematic CCU2 Programmverknüpfung
+<img src="https://user-images.githubusercontent.com/26480749/32345279-01e14e34-c00a-11e7-80f0-ec5cf807c749.JPG" border="0">
 
+Dazu starten wir ein Skript, verwenden den `system.Exec` Befehl und rufen darin unser TCL-Skript auf: 
+
+```
+string stdout;
+string stderr;
+string backupFiles = "/usr/local/logs/temperatur.csv,
+                               /usr/local/logs/luftfeuchte.log,
+                               /usr/local/logs/fenster.txt";
+system.Exec ("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles, &stdout, &stderr);
+```
 
 ### Backup als Cronjob
 
