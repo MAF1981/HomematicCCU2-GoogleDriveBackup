@@ -217,7 +217,7 @@ Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforder
 ### Backup über Homematic CCU2 Programmverknüpfung ###
 Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und jeden Sonntag um 22 Uhr ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
 
-<img src="https://user-images.githubusercontent.com/26480749/32345279-01e14e34-c00a-11e7-80f0-ec5cf807c749.JPG" border="0">
+<img src="https://user-images.githubusercontent.com/26480749/32345522-bfd4f756-c00a-11e7-9fd1-74147851fe89.JPG" border="0">
 
 Dazu starten wir ein Skript, verwenden den `system.Exec` Befehl und rufen darin unser TCL-Skript auf: 
 
