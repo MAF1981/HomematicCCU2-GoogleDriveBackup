@@ -182,10 +182,25 @@ Hier erhalten wir nun auch unseren `refresh_token`, welcher als letzter Paramete
 
 
 ### Google Drive Einrichten ###
-Nachdem wir nun mühsam alle Parameter für ein erfolgreiches Backup ermittelt haben und auch schon alles einsatzbereit ist, fiel dem ein oder anderen im TCL-Skript vielleicht auf, dass es noch einen Parameter `google_drive_backup_folder` gibt. Dieser Parameter kann auf einen beliebigen Ordner in Google Drive verweisen, in den die Backups letztendlich gepspeichert werden. **Wird der Parameter nicht gesetzt, landen alle Backups im Root-Verzeichnis!**
+Nachdem wir nun mühsam alle Parameter für ein erfolgreiches Backup ermittelt haben und auch schon alles einsatzbereit ist, fiel dem ein oder anderen im TCL-Skript vielleicht auf, dass es noch einen Parameter `google_drive_backup_folder` gibt. Dieser Parameter kann auf einen beliebigen Ordner in Google Drive verweisen, in den die Backups letztendlich gespeichert werden. **Wird der Parameter nicht gesetzt, landen alle Backups im Root-Verzeichnis!**
+Wir loggen uns also in Google Drive ein: https://drive.google.com und legen einen neuen Ordner **Homematic Backup** an.
+<table>
+ <tr>
+   <td width="33%">Google Drive Dashboard:
+<img src="https://user-images.githubusercontent.com/26480749/32328441-493302f8-bfda-11e7-9241-66cfd427091b.JPG" border="0">
+    </td>
+  <td width="33%">Ordner anlegen:
+   <img src="https://user-images.githubusercontent.com/26480749/32328442-499bc8d8-bfda-11e7-8293-df80f824d627.JPG" border="0">
+  </td>
+  <td width="33%">Ordnername auslesen:
+   <img src="https://user-images.githubusercontent.com/26480749/32328443-49caf7a2-bfda-11e7-95a1-7f46b73f4160.JPG" border="0">
+  </td> 
+ </tr>
+ </table>
+Der Name des neu angelegten Ordners ist (Bild rechts): `0BwzYy3i2kz8ZdmJkUWVPaDRNb0E`
 
 
-Dieses Kapitel dient hautpsächlich dazu, dass das später verwendete Beispiel nachvollziehbar ist/bleibt. Bei der Anpassung des eigentlichen TCL-Skriptes wird sich auf diesen Punkt bezogen. In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
+In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
 
 ## Anpassung des Skriptes
 TODO
