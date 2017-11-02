@@ -123,15 +123,44 @@ Sobald wir nun auf `Create` klicken und uns die Anmeldeinformationen erzeugen la
 
 <img src="https://user-images.githubusercontent.com/26480749/32324857-07814e4e-bfcd-11e7-9914-057176c6bf4b.jpg" border="0">
 
-Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für uns. Diese müssen wir uns kopieren, da wir sie später in das TCL-Skript einfügen werden:
+Die beiden Werte für `client ID` und `client secret` sind nun **wichtig** für uns. Diese müssen wir uns kopieren, da wir sie gleich in das TCL-Skript einfügen werden:
 > **client ID:** 346571031919-348lfri1vqsl1dfc0krt4mocpurevd8o.apps.googleusercontent.com
 
 > **client secret:** 133nRfGrMOV6Cqg8OKIjctdw
 
-Mit diesen Werten ist es nun möglich über einen Webservice bei Google Drive weitere Informationen anzufordern, die für das TCL-Skript benötigt werden.
+An dieser Stelle ist die Konfiguration in der Google Developer Console abgeschlossen.
 
-#### Schritt 5: Geräte-Code für die CCU2 erzeugen und Geräte bestätigen ####
-Nachdem wir `client ID` und `client secret` verfügbar haben, müssen wir damit **von** unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für das Gerät (also unsere Homematic CCU2) eine eindeutige Geräte-Id und einen Gerätecode zurückliefert. Die Geräte-Id benötigen wir später wieder im TCL-Script und mit dem Geräte-Code muss man die Homematic CCU2 einmalig manuell über eine Webseite für die Google Drive API freischalten!
+#### Schritt 5: TCL-Skript anpassen und auf die CCU2 hochladen ####
+Nachdem wir durch den vorherigen Schritt `client ID` und `client secret` verfügbar haben, müssen wir diese in das TCL-Skript an passender Stelle einfügen. Daher öffnen wir das TCL-Skript **`gdrive_backup.tcl`** mit einem Editor und setzen die `client ID` als Wert für den Parameter `google_client_id` und  `client secret` als Wert für Parameter `google_client_secret` . Das sollte dann so aussehen:
+
+<img src="https://user-images.githubusercontent.com/26480749/32325378-07f6fe3a-bfcf-11e7-9cdd-bb557f003a8f.JPG" border="0">
+
+Nachdem wir die Änderungen gespeichert haben, laden wir das Skript per FTP auf die Homematic CCU2 in ein eigenes Verzeichnis (bspw. `/usr/local/gdrive`) hoch. Im FTP Programm setzen wir gleich auch noch die richtigen Dateizugriffsrechte für das (neue) Verzeichnis und das TCL-Skript. Beide müssen den Wert **755** bekommen:
+<img src="https://user-images.githubusercontent.com/26480749/32325633-0db1e550-bfd0-11e7-877c-dadf6140cd29.JPG" border="0">
+
+Im nächsten Schritt führen wir das Skript aus um weitere, erforderliche Informationen zu bekommen.
+
+#### Schritt 6: Geräte-Code anfordern und Gerät bestätigen ####
+Mit den beiden gesetzten Werten für `google_client_id` und `google_client_secret` können wir **von** unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für unser Gerät (also unsere Homematic CCU2) eine eindeutige Geräte-Id erzeugt und einen Geräte-Code zurückliefert. Die Geräte-Id wird später ebenfalls im TCL-Script benötigt und mit dem Geräte-Code müssen wir unser "Produkt" (der Name aus dem `Consent Screen` - siehe Schritt 4) einmalig manuell über Google's Device Webseite freischalten! Aber auch hier der Reihe nach:
+Zuerst loggen wir uns mit PuTTY auf unsere Homematic CCU2 ein. Der Benutzer sollte am besten Root-Rechte besitzen. Wir wechseln in das Verzeichnis mit dem TCL-Skript und führen es mit folgenden Parametern aus:
+
+> tclsh ./gdrive_backup.tcl -dc
+
+Nun bekommen wir als Antwort eine Ausgabe angezeigt, die wie folgt aussieht:
+<img src="https://user-images.githubusercontent.com/26480749/32325994-8efc2732-bfd1-11e7-9b90-7936b64b297f.jpg" border="0">
+
+**Wichtig sind an dieser Stelle der `device_code` und der `user_code`!** 
+Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: https://www.google.com/device Dort geben wir den Wert aus `user_code` ein und bestätigen, dass wir unser "Produkt" freischalten möchten:
+<table>
+ <tr>
+   <td width="50%">Eingabe des User-Codes:
+<img src="https://user-images.githubusercontent.com/26480749/32326253-7bbca15a-bfd2-11e7-9b5d-f5b2f887cde6.jpg" border="0">
+    </td>
+  <td width="50%">Bestätigen:
+   <img src="https://user-images.githubusercontent.com/26480749/32326255-7be36934-bfd2-11e7-9b07-90da9e44056f.jpg" border="0">
+  </td>
+ </tr>
+ </table>
 
 
 
