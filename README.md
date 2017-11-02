@@ -149,6 +149,9 @@ Zuerst loggen wir uns mit PuTTY auf unsere Homematic CCU2 ein. Der Benutzer soll
 Nun bekommen wir als Antwort eine Ausgabe angezeigt, die wie folgt aussieht:
 <img src="https://user-images.githubusercontent.com/26480749/32325994-8efc2732-bfd1-11e7-9b90-7936b64b297f.jpg" border="0">
 
+> `device_code`: AH-1Ng3QdrBUIak8yvgv48SAtyHigqf3GaO0rSasBfJpPbN0LOXY8ErDmi_jg_mW9CiRC9e3ZQxz1TKYYp7N8z4uj44haA2Hvw
+> `user_code`: NDFM-BVPP
+
 **Wichtig sind an dieser Stelle der `device_code` und der `user_code`!** 
 Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: https://www.google.com/device (das ist übrigens die `verification_url` die auch in der Antwort mitgeschickt wird) Dort geben wir den Wert aus `user_code` ein und bestätigen, dass wir unser "Produkt" freischalten möchten:
 <table>
