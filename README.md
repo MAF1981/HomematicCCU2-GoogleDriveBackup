@@ -215,7 +215,7 @@ Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforder
 ``` 
 
 ### Backup über Homematic CCU2 Programmverknüpfung ###
-Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und jeden Sonntag um 22 Uhr ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
+Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und jeden Sonntag um 22 Uhr ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien -als Beispiel- auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
 
 <img src="https://user-images.githubusercontent.com/26480749/32345522-bfd4f756-c00a-11e7-9fd1-74147851fe89.JPG" border="0">
 
@@ -229,6 +229,14 @@ string backupFiles = "/usr/local/logs/temperatur.csv,
                                /usr/local/logs/fenster.txt";
 system.Exec ("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles, &stdout, &stderr);
 ```
+Alternativ kann man auch den Timer der CuXD verwenden:
+```
+string backupFiles = "/usr/local/logs/temperatur.csv,
+                               /usr/local/logs/luftfeuchte.log,
+                               /usr/local/logs/fenster.txt";
+dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles);
+```
 
-### Backup als Cronjob
+### Backup als Cronjob ###
+Möchte man um das Backup-Skript herum keine zusätzliche Logik, die eine Ausführung als Programm in der Homematic CCU2 Weboberfläche erfordert, ist der beste Weg das TCL-Skript als einen Cronjob zu definieren. 
 
