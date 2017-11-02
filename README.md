@@ -197,7 +197,7 @@ Wir loggen uns also in Google Drive ein: https://drive.google.com und legen eine
   </td> 
  </tr>
  </table>
-Der Name des neu angelegten Ordners ist (Bild rechts): `0BwzYy3i2kz8ZdmJkUWVPaDRNb0E`
+Der Name des neu angelegten Ordners ist (Bild rechts): **0BwzYy3i2kz8ZdmJkUWVPaDRNb0E**
 
 
 In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
