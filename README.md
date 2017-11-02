@@ -143,9 +143,9 @@ Im nächsten Schritt führen wir das Skript aus um weitere, erforderliche Inform
 #### Schritt 6: Geräte-Code anfordern und Gerät bestätigen ####
 Mit den beiden gesetzten Werten für `google_client_id` und `google_client_secret` können wir **von** unserer Homematic CCU2 einen Google Drive Webservice aufrufen, der uns für unser Gerät (also unsere Homematic CCU2) eine eindeutige Geräte-Id erzeugt und einen Geräte-Code zurückliefert. Die Geräte-Id wird später ebenfalls im TCL-Script benötigt und mit dem Geräte-Code müssen wir unser "Produkt" (der Name aus dem `Consent Screen` - siehe Schritt 4) einmalig manuell über Google's Device Webseite freischalten! Aber auch hier der Reihe nach:
 Zuerst loggen wir uns mit PuTTY auf unsere Homematic CCU2 ein. Der Benutzer sollte am besten Root-Rechte besitzen. Wir wechseln in das Verzeichnis mit dem TCL-Skript und führen es mit folgenden Parametern aus (`-dc` am Ende):
-
-> tclsh ./gdrive_backup.tcl -dc
-
+```
+# tclsh ./gdrive_backup.tcl -dc
+```
 Nun bekommen wir als Antwort eine Ausgabe angezeigt, die wie folgt aussieht:
 <img src="https://user-images.githubusercontent.com/26480749/32325994-8efc2732-bfd1-11e7-9b90-7936b64b297f.jpg" border="0">
 
@@ -172,16 +172,17 @@ Die Änderung speichern und das FTP-Programm sollte die Datei automatisch wieder
 #### Schritt 7: Refresh-Token anfordern ####
 Mit der Angabe des `homematic_device_code` im TCL-Skript sind wir nun in der Lage, uns einen so genannten Access-Token für die Google Drive API zu holen, der uns den Zugriff erlaubt. Allerdings ist so ein Access-Token nur jeweils 60 Minuten gültig (3600 Sekunden), danach müsste die ganze Prozedur wiederholt werden. Daher sendet aber Google einen weiteren Token mit, den **Refresh-Token**. Mit ihm ist es möglich, jederzeit einen weiteren Access-Token anzufordern, ohne eben alle 60 Minuten komplett die Schritte 4 bis 6 zu wiederholen. Der Refresh-Token behält seine Gültigkeit, kann aber auch nur dazu genutzt werden, um einen neuen Access-Token zu ermitteln.
 Fordern wir uns also unseren **Refresh-Token** an! Dazu wechseln wir wieder in die PuTTY Konsole und rufen unser TCL-Skript erneut auf, diesmal aber mit dem Parameter `-rt` am Ende:
-
- > tclsh ./gdrive_backup.tcl -rt
-
+```
+# tclsh ./gdrive_backup.tcl -rt
+```
 Als Antwort bekommen wir nun folgende Ausgabe:
 <img src="https://user-images.githubusercontent.com/26480749/32327342-7479f79a-bfd6-11e7-911b-abe1b066202f.jpg" border="0">
+> `refresh_token`: 1/dZkonXUfO75ASOhgZdpt5urYH0rK2cvKTC70v_5sAOE
 
 Hier erhalten wir nun auch unseren `refresh_token`, welcher als letzter Parameter für unser Backup-Skript benötigt wird. Auch diesen Wert kopieren wir uns und öffnen erneut das TCL-Skript im FTP-Programm auf unserer Homematic CCU2. Der Refresh-Token wird nun als Wert für den Parameter `google_refresh_token` gesetzt:
 <img src="https://user-images.githubusercontent.com/26480749/32327527-216e2962-bfd7-11e7-8816-4ab99ff684c6.jpg" border="0">
 
-**Nachdem die Datei gespeichert und wieder auf die Homematic CCU2 hochgeladen wurde ist unser Backup-Script einsatzbereit! :-)** Bevor wir aber damit beginnen, wie man das Skript ausführt und welche zusätzlichen Parameter man noch setzen kann, widmen wir uns kurz noch Google Drive selbst um dort einen Ordner zu erstellen, indem die Backups landen sollen. 
+**Nachdem die Datei gespeichert und wieder auf die Homematic CCU2 hochgeladen wurde, ist unser Backup-Script einsatzbereit! :-)** Bevor wir aber damit beginnen, wie man das Skript ausführt und welche zusätzlichen Parameter man noch setzen kann, widmen wir uns kurz noch Google Drive selbst. Dort werden wir noch einen Ordner erstellen, indem die Backups landen sollen. 
 
 
 ### Google Drive Einrichten ###
@@ -201,7 +202,7 @@ Wir loggen uns also in Google Drive ein: https://drive.google.com und legen eine
  </tr>
  </table>
 
-Der Name des neu angelegten Ordners ist (Bild rechts): **0BwzYy3i2kz8ZdmJkUWVPaDRNb0E**. Wenn wir diese Zeichenkette noch kopieren und in das TCL-Skript als Wert für `google_drive_backup_folder` setzen, haben wir wirklich alle Informationen zusammen und können endlich mit dem Einrichten des Backups auf der Homematic CCU2 beginnen:
+Der interne Name des neu angelegten Ordners ist (Bild rechts): **`0BwzYy3i2kz8ZdmJkUWVPaDRNb0E`**. Wenn wir diese Zeichenkette noch kopieren und in das TCL-Skript als Wert für `google_drive_backup_folder` setzen, haben wir wirklich alle Informationen zusammen und können endlich mit dem Einrichten des Backups auf der Homematic CCU2 beginnen:
 <img src="https://user-images.githubusercontent.com/26480749/32329045-1b61201a-bfdc-11e7-9e6f-9fb909fe9be3.JPG" border="0">
 
 
