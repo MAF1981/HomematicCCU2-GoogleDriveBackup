@@ -150,7 +150,7 @@ Nun bekommen wir als Antwort eine Ausgabe angezeigt, die wie folgt aussieht:
 <img src="https://user-images.githubusercontent.com/26480749/32325994-8efc2732-bfd1-11e7-9b90-7936b64b297f.jpg" border="0">
 
 **Wichtig sind an dieser Stelle der `device_code` und der `user_code`!** 
-Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: https://www.google.com/device Dort geben wir den Wert aus `user_code` ein und bestätigen, dass wir unser "Produkt" freischalten möchten:
+Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: https://www.google.com/device (das ist übrigens die `verification_url` die auch in der Antwort mitgeschickt wird) Dort geben wir den Wert aus `user_code` ein und bestätigen, dass wir unser "Produkt" freischalten möchten:
 <table>
  <tr>
    <td width="50%">Eingabe des User-Codes:
@@ -161,7 +161,9 @@ Den `user_code` kopieren wir uns und rufen folgende Webseite im Browser auf: htt
   </td>
  </tr>
  </table>
-
+Den `device_code` kopieren wir uns ebenfalls. Nun öffnen wir im FTP-Programm auf der Homematic CCU2 das TCL-Skript und fügen den Wert als Wert für den Parameter `homematic_device_code` ein:
+   <img src="https://user-images.githubusercontent.com/26480749/32326612-c6f4327c-bfd3-11e7-9e30-516662949f23.JPG" border="0">
+Die Änderung speichern und das FTP-Programm sollte die Datei automatisch wieder hochladen.
 
 
 ### Google Drive Einrichten ###
