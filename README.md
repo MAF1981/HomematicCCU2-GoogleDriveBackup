@@ -197,10 +197,20 @@ Wir loggen uns also in Google Drive ein: https://drive.google.com und legen eine
   </td> 
  </tr>
  </table>
-Der Name des neu angelegten Ordners ist (Bild rechts): **0BwzYy3i2kz8ZdmJkUWVPaDRNb0E**
 
+Der Name des neu angelegten Ordners ist (Bild rechts): **0BwzYy3i2kz8ZdmJkUWVPaDRNb0E**. Wenn wir diese Zeichenkette noch kopieren und in das TCL-Skript als Wert für `google_drive_backup_folder` setzen, haben wir wirklich alle Informationen zusammen und können endlich mit dem Einrichten des Backups auf der Homematic CCU2 beginnen:
+<img src="https://user-images.githubusercontent.com/26480749/32329045-1b61201a-bfdc-11e7-9e6f-9fb909fe9be3.JPG" border="0">
 
-In Google Drive bekommt jeder Ordner eine eindeutige Id zugeordnet, diese wird im TCL-Skript benötigt, wenn man seine Daten in einem bestimmten Unterverzeichnis speichern möchte und nicht alles im Root-Verzeichnis seines Google Drive Accounts liegen haben möchte.
 
 ## Anpassung des Skriptes
-TODO
+Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforderlichen Parameter ermittelt haben, geht es nun an die Einrichtung des Backups. Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:
+
+**Beispiel des Skriptaufrufes:**
+> tclsh ./gdrive_backup.tcl /usr/local/logs/logfile.txt,/usr/local/logs/werte.csv,/usr/local/logs/log.txt
+
+
+### Backup über Homematic CCU2 Programmverknüpfung
+
+
+### Backup als Cronjob
+
