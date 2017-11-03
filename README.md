@@ -2,24 +2,25 @@
 Zeitgesteuerte Datensicherung von der Homematic CCU2 Zentrale auf einen Google Drive Account.
 
 ## Einleitung
-Mit diesem Skript lassen sich Daten von einer CCU2 Zentrale des Smart-Home Systems Homematic der Firma eQ-3 auf einem Google Drive Account in der Cloud sichern. Dabei lässt sich das Skript entweder über die Homematic Weboberfläche mittels Programmverknüpfung und dem Zeitmodul steuern oder kann - unabhängig - direkt auch als Cronjob auf der CCU2 laufen. Das TCL-Skript kommt dabei ohne weitere Bibliotheken oder Abhängigkeiten aus. Dies ist insofern interessant, als das die Homematic Zentrale mit der TCL Version 8.2 ausgeliefert wird - das Release-Datum dieser TCL-Version war der 16.12.1999! In dieser Version gab es keinen Support für JSON und auch viele andere Sprachkonstrukte, die das Leben einfacher machen, waren noch nicht implementiert.
+Mit diesem Skript lassen sich Daten von der CCU2 Zentrale des Smart-Home-Systems Homematic der Firma eQ-3 auf einem Google Drive Account in der Cloud sichern. Dabei kann das Skript entweder über die Homematic Weboberfläche mittels Programmverknüpfung und dem Zeitmodul gesteuert werden oder - unabhängig - direkt auch als Cronjob auf der CCU2 laufen. Das TCL-Skript [gdrive_backup.tcl](gdrive_backup.tcl) kommt dabei ohne weitere Bibliotheken oder Abhängigkeiten aus. Dies ist insofern interessant, als das die Homematic Zentrale mit der TCL Version 8.2 ausgeliefert wird - das Release-Datum dieser TCL-Version war der 16.12.1999! In dieser Version gab es keinen Support für JSON und auch viele andere Sprachkonstrukte, die das Leben einfacher machen, waren noch nicht implementiert.
 
 ## Inhalt
  1. Voraussetzungen
- 2. Kurzanleitung - Installation in 7 Schritten 
+ 2. Kurzanleitung
  3. Schritt-für-Schritt Anleitung
  4. Anpassung des Skriptes / Beispiele
  5. Parameterbeschreibung
 
 ## 1. Voraussetzungen
 Folgende Voraussetzungen werden für das Projekt benötigt:
-- Google Account
-- Die Zentrale des Homematic Smart-Home Systems CCU2 der Firma eQ-3
-- Auf der Homematic CCU2 muss das AddOn CUxD (CUx Daemon) installiert sein
-- FTP Zugriff auf die Homematic CCU2 (bpsw. FileZilla)
-- SSH Zugriff auf die Homematic CCU2 (bspw. PuTTY)
+- Google Account (Link: https://accounts.google.com)
+- Die Zentrale des Homematic Smart-Home Systems CCU2 der Firma eQ-3 (Link: http://amzn.to/2zaipE7)
+- Auf der Homematic CCU2 muss das AddOn CUxD (CUx Daemon) installiert sein (Link: http://cuxd.de)
+- FTP Zugriff auf die Homematic CCU2, bpsw. FileZilla (Link: https://filezilla-project.org)
+- SSH Zugriff auf die Homematic CCU2, bspw. PuTTY (Link: http://putty.org)
 
-## 2. Kurzanleitung - Installation in 7 Schritten
+## 2. Kurzanleitung
+Eine kurze Anleitung aller benötigten Schritte um das Backup-Skript einzusetzen (ohne Bilder, ohne weitere Erläuterungen - bitte sonst die Schritt-für-Schritt-Anleitung unten lesen).
 1. In der Google Developer Console (http://console.developers.google.com) die Google Drive API aktivieren und dazu einen OAuth 2.0 Client (Typ: "Other") anlegen um  `client ID` und `client secret` Schlüssel zu bekommen.
 2. TCL-Skript öffnen und als Werte für die Parameter `google_client_id` und `google_client_secret` die Werte des OAuth 2.0 Clients setzen.
 2. TCL-Skript in ein Verzeichnis auf die Homematic CCU2 hochladen (bspw. `/usr/local/gdrive`) und Verzeichnis + TCL-Skript mit folgenden Berechtigungen versehen (`CHMOD`): **755**
