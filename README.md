@@ -4,12 +4,14 @@ Zeitgesteuerte Datensicherung von der Homematic CCU2 Zentrale auf einen Google D
 ## Einleitung
 Mit diesem Skript lassen sich Daten von einer CCU2 Zentrale des Smart-Home Systems Homematic der Firma eQ-3 auf einem Google Drive Account in der Cloud sichern. Dabei lässt sich das Skript entweder über die Homematic Weboberfläche mittels Programmverknüpfung und dem Zeitmodul steuern oder kann - unabhängig - direkt auch als Cronjob auf der CCU2 laufen. Das TCL-Skript kommt dabei ohne weitere Bibliotheken oder Abhängigkeiten aus. Dies ist insofern interessant, als das die Homematic Zentrale mit der TCL Version 8.2 ausgeliefert wird - das Release-Datum dieser TCL-Version war der 16.12.1999! In dieser Version gab es keinen Support für JSON und auch viele andere Sprachkonstrukte, die das Leben einfacher machen, waren noch nicht implementiert.
 
- 1. Einrichten der Google Developer Console
- 2. Einrichten von Google Drive 
- 3. Anpassungen im Skript
- 4. Einrichten des Backups auf der CCU2
+## Inhalt
+ 1. Voraussetzungen
+ 2. Kurzanleitung - Installation in 7 Schritten 
+ 3. Schritt-für-Schritt Anleitung
+ 4. Anpassung des Skriptes / Beispiele
+ 5. Parameterbeschreibung
 
-## Voraussetzungen
+## 1. Voraussetzungen
 Folgende Voraussetzungen werden für das Projekt benötigt:
 - Google Account
 - Die Zentrale des Homematic Smart-Home Systems CCU2 der Firma eQ-3
@@ -17,8 +19,8 @@ Folgende Voraussetzungen werden für das Projekt benötigt:
 - FTP Zugriff auf die Homematic CCU2 (bpsw. FileZilla)
 - SSH Zugriff auf die Homematic CCU2 (bspw. PuTTY)
 
-## Kurzanleitung - Installation in 7 Schritten
-1. In der Google Developer Console (http://console.developers.google.com) die Google Drive API aktivieren und dazu einen OAuth 2.0 Client (Web-Applikation) anlegen um  `client ID` und `client secret` Schlüssel zu bekommen.
+## 2. Kurzanleitung - Installation in 7 Schritten
+1. In der Google Developer Console (http://console.developers.google.com) die Google Drive API aktivieren und dazu einen OAuth 2.0 Client (Typ: "Other") anlegen um  `client ID` und `client secret` Schlüssel zu bekommen.
 2. TCL-Skript öffnen und als Werte für die Parameter `google_client_id` und `google_client_secret` die Werte des OAuth 2.0 Clients setzen.
 2. TCL-Skript in ein Verzeichnis auf die Homematic CCU2 hochladen (bspw. `/usr/local/gdrive`) und Verzeichnis + TCL-Skript mit folgenden Berechtigungen versehen (`CHMOD`): **755**
 3. Mit PuTTY auf die Homematic CCU2 einloggen, in das Verzeichnis (`/usr/local/gdrive`) des TCL-Skriptes wechseln und dann folgenden Befehl ausführen (Parameter `-dc` am Ende):
@@ -60,7 +62,7 @@ Diesen kopieren wir wieder und setzen ihn im TCL-Skript als Wert der Variablen `
 
 **Nun haben wir alle erforderlichen Parameter für ein erfolgreiches Backup von der Homematic CCU2 gesammelt und in dem TCL-Skript zur Verfügung.** Wie man das Skript ausführt und welche Einstellungen man treffen kann, steht im Kapitel "Einrichten des Backups auf der CCU2".
 
-## Schritt-für-Schritt Anleitung
+## 3. Schritt-für-Schritt Anleitung
 In diesem Abschnitt wird die Installation im Detail und mit Bildern ausführlich erklärt. Im Gegensatz zum Kapitel "Kurzanleitung" richtet sich dieser Abschnitt an Nutzer, die nicht im Detail mit den Systemen vertraut sind. 
 
 ###  Google Developer Console
@@ -206,7 +208,7 @@ Der interne Name des neu angelegten Ordners ist (Bild rechts): **`0BwzYy3i2kz8Zd
 <img src="https://user-images.githubusercontent.com/26480749/32329045-1b61201a-bfdc-11e7-9e6f-9fb909fe9be3.JPG" border="0">
 
 
-## Anpassung des Skriptes
+## 4. Anpassung des Skriptes / Beispiele
 Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforderlichen Parameter ermittelt haben, geht es nun an die Einrichtung des Backups. Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:
 
 **Beispiel des Skriptaufrufes auf der Kommandozeile der Homematic CCU2:**
@@ -240,3 +242,23 @@ dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("tclsh /usr/local/gdrive/gdriv
 ### Backup als Cronjob ###
 Möchte man um das Backup-Skript herum keine zusätzliche Logik, die eine Ausführung als Programm in der Homematic CCU2 Weboberfläche erfordert, ist der beste Weg das TCL-Skript als einen Cronjob zu definieren. 
 
+## 5. Parameterbeschreibung ##
+Die folgende Tabelle listet alle im TCL-Skript `gdrive_backup.tcl` verwendeten, änderbaren Parameter und deren Verwendung/Einstellungsmöglichkeiten auf.
+
+<table width="100%">
+ <th>
+   <tr>
+    <td width="40%">Name</td>
+    <td width="60%">Beschreibung</td>
+   <tr>     
+ </th>
+ <tbody>
+ <tr>
+   <td>Google Drive Dashboard:
+    </td>
+  <td>Ordner anlegen:
+  </td>
+ 
+ </tr>
+ </tbody>
+ </table>
