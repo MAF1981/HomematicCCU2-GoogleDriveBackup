@@ -222,7 +222,7 @@ Werden die folgenden Befehle über PuTTY direkt auf der Homematic CCU2 ausgefüh
 ``` 
 
 ### Backup über Homematic CCU2 Programmverknüpfung ###
-Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und jeden Sonntag um 22 Uhr ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien -als Beispiel- auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
+Wir loggen uns auf der Weboberfläche unserer Homematic ein und erstellen ein neues Programm (Menü "Programme und Verknüpfungen" -> "Programme & Zentralenverknüpfung"), welches das Homematic Zeitmodul verwendet und **jeden Sonntag um 22 Uhr** ein Backup starten soll. Zu diesem Zeitpunkt möchten wir die folgenden Dateien -als Beispiel- auf Google Drive sichern: `/usr/local/logs/temperatur.csv`, `/usr/local/logs/luftfeuchte.log` und `/usr/local/logs/fenster.txt`.
 
 <img src="https://user-images.githubusercontent.com/26480749/32345522-bfd4f756-c00a-11e7-9fd1-74147851fe89.JPG" border="0">
 
@@ -263,6 +263,8 @@ Nun fügen wir unser Backup als weiteren Job der `crontab` hinzu. Hier sind Kent
 ```
 0 22 * * 0 tclsh /usr/local/gdrive/gdrive_backup.tcl >/dev/null 2>&1
 ```
+Im Web gibt es einige Dienste, die bei der Cronjob Erstellung unterstützen. Einer davon ist bspw.: https://crontab-generator.org/
+
 <img src="https://user-images.githubusercontent.com/26480749/32404859-a4a1fc04-c159-11e7-905c-13117137c03f.jpg" border="0">
 
 Damit ist der Cronjob eingerichtet und sollte fortan seine Dienste tun.
