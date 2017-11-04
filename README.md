@@ -1,5 +1,16 @@
 # HomematicCCU2-GoogleDriveBackup
-Zeitgesteuerte Datensicherung von der Homematic CCU2 Zentrale auf einen Google Drive Account.
+Dieses Skript ermöglicht eine zeitgesteuerte Datensicherung von Logfiles der Homematic CCU2 auf Google Drive.
+
+<table>
+ <tr>
+   <td width="50%">Homematic CCU2 Programm:
+<img src="https://user-images.githubusercontent.com/26480749/32405601-c8c126fa-c168-11e7-8f3b-618c991b8edf.JPG" border="0">
+    </td>
+  <td width="50%">Gesicherte Logs auf Google Drive:
+   <img src="https://user-images.githubusercontent.com/26480749/32405550-18559ce2-c168-11e7-92ee-c38a775a847b.jpg" border="0">
+  </td>
+ </tr>
+ </table>
 
 ## Einleitung
 Mit diesem Skript lassen sich Daten von der CCU2 Zentrale des Smart-Home-Systems Homematic der Firma eQ-3 auf einem Google Drive Account in der Cloud sichern. Dabei kann das Skript entweder über die Homematic Weboberfläche mittels Programmverknüpfung und dem Zeitmodul gesteuert werden oder - unabhängig - direkt auch als Cronjob auf der CCU2 laufen. Das TCL-Skript [gdrive_backup.tcl](gdrive_backup.tcl) kommt dabei ohne weitere Bibliotheken oder Abhängigkeiten aus. Dies ist insofern interessant, als das die Homematic Zentrale mit der TCL Version 8.2 ausgeliefert wird - das Release-Datum dieser TCL-Version war der 16.12.1999! In dieser Version gab es keinen Support für JSON und auch viele andere Sprachkonstrukte, die das Leben einfacher machen, waren noch nicht implementiert.
