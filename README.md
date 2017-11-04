@@ -211,11 +211,14 @@ Der interne Name des neu angelegten Ordners ist (Bild rechts): **`0BwzYy3i2kz8Zd
 
 
 ## 4. Anpassung des Skriptes / Beispiele
-Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforderlichen Parameter ermittelt haben, geht es nun an die Einrichtung des Backups. Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:
+Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforderlichen Parameter ermittelt haben, geht es nun an die Einrichtung des Backups. 
+> **Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:**
 
-**Beispiel des Skriptaufrufes auf der Kommandozeile der Homematic CCU2:**
+### Direkter Aufruf über die Kommandozeile ###
+Wird die folgende Zeile über PuTTY direkt auf der Homematic CCU2 ausgeführt, werden die Dateien *temperatur.csv*, *luftfeuchte.log* und *fenster.txt* aus dem Verzeichnis */usr/local/logs* auf Google Drive hochgeladen. Die Angabe der Dateien hat immer mit komplettem Pfad zu erfolgen. 
 ```
-# tclsh ./gdrive_backup.tcl /usr/local/logs/logfile.txt,/usr/local/logs/werte.csv,/usr/local/logs/log.txt
+# cd /usr/local/gdrive
+# tclsh ./gdrive_backup.tcl /usr/local/logs/temperatur.csv,/usr/local/logs/luftfeuchte.log,/usr/local/logs/fenster.txt
 ``` 
 
 ### Backup über Homematic CCU2 Programmverknüpfung ###
@@ -229,15 +232,15 @@ Dazu starten wir ein Skript, verwenden den `system.Exec` Befehl und rufen darin 
 string stdout;
 string stderr;
 string backupFiles = "/usr/local/logs/temperatur.csv,
-                               /usr/local/logs/luftfeuchte.log,
-                               /usr/local/logs/fenster.txt";
+                      /usr/local/logs/luftfeuchte.log,
+                      /usr/local/logs/fenster.txt";
 system.Exec ("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles, &stdout, &stderr);
 ```
-Alternativ kann man auch den Timer der CuXD verwenden:
+Alternativ kann man auch den Timer des CuXD verwenden, sofern das entsprechende Gerät auf dem CuXD angelegt wurde:
 ```
 string backupFiles = "/usr/local/logs/temperatur.csv,
-                               /usr/local/logs/luftfeuchte.log,
-                               /usr/local/logs/fenster.txt";
+                      /usr/local/logs/luftfeuchte.log,
+                      /usr/local/logs/fenster.txt";
 dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles);
 ```
 
@@ -248,19 +251,40 @@ Möchte man um das Backup-Skript herum keine zusätzliche Logik, die eine Ausfü
 Die folgende Tabelle listet alle im TCL-Skript `gdrive_backup.tcl` verwendeten, änderbaren Parameter und deren Verwendung/Einstellungsmöglichkeiten auf.
 
 <table width="100%">
- <th>
+ <thead>
    <tr>
-    <td width="40%">Name</td>
-    <td width="60%">Beschreibung</td>
+    <th width="40%">Name</th>
+    <th width="60%">Beschreibung</th>
    <tr>     
- </th>
+ </thead>
  <tbody>
  <tr>
-   <td>Google Drive Dashboard:
-    </td>
-  <td>Ordner anlegen:
-  </td>
- 
+   <td>google_client_id</td>
+  <td>Die Client-Id, welche für die OAuth 2.0 Authentifizierung benötigt wird.</td>
  </tr>
- </tbody>
+ <tr>
+   <td>google_client_secret</td>
+  <td>Der Client-Secret Schlüssel für die OAuth 2.0 Authentifizierung.</td>
+ </tr>
+ <tr>
+   <td>google_refresh_token</td>
+  <td>Der Rehresh-token, welcher für die Ermittlung des Access-Tokens benötigt wird. </td>
+ </tr>
+ <tr>
+   <td>google_drive_backup_folder</td>
+  <td>Der Name des Google Drive Verzeichnisses, in das alle Backups hochgeladen werden sollen. Wird kein Name angegeben, landen alle Backups im Root-Verzeichnis. Der Name ist aus der URL zu entnehmen, nachdem man in das Verzeichnis navigiert hat.</td>
+ </tr>
+ <tr>
+   <td>homematic_device_code</td>
+  <td>Der erzeugte Geräte-Code, welcher speziell für die Anwendung in der Google Developer Console erzeugt wurde und der mit dem User-Code bestätigt wurde.</td>
+ </tr>
+ <tr>
+   <td>backupFilesList</td>
+  <td>Eine Liste mit allen Dateien, die auf Google Drive hochgeladen werden sollen. Werden die Dateien als Parameter dem Programmaufruf übergeben (bspw. wenn das Skript über die Homematic CCU2 Weboberfläche als Programmverknüpfung läuft), kann dieser Parameter leer bleiben. Er ist dazu gedacht, falls das Backup-Skript als Cronjob aufgerufen werden soll.</td>
+ </tr>
+ <tr>
+   <td>createDatetimeFolderInBackupFolder</td>
+  <td>Ist dieser Parameter auf 1 gesetzt (=Default), dann wird in dem oben angegebenen "google_drive_backup_folder" vor dem Backup ein weiteres Verzeichnis erstellt, welches als Namen den aktuellen Zeitstempel erhält. In dieses Verzeichnis werden dann die Dateien hochgeladen. Wird der Parameter auf 0 gesetzt, werden alle Dateien direkt in das angegebene "google_drive_backup_folder" hochgeladen.</td>
+ </tr>  
+</tbody>
  </table>
