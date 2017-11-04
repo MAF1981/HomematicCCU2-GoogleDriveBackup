@@ -259,11 +259,13 @@ Nun können wir das Backup-Skript ohne Parameter aufrufen, da es die Dateien aus
 ```
 <img src="https://user-images.githubusercontent.com/26480749/32404776-8d29790a-c157-11e7-9137-1be201245814.jpg" border="0">
 
-Nun fügen wir unser Backup als weiteren Job der `crontab` hinzu. Hier sind Kentnisse des `VI` Editors Voraussetzung (http://www.linux-fuer-alle.de/bedienung-des-editors-vi). Wie im Beispiel oben über die Homematic Weboberfläche, möchten wir unser Backup **wöchentlich am Sonntag um 22 Uhr** starten. Dazu fügen wir folgende Zeile in der `crontab` hinzu:
+Nun fügen wir unser Backup als weiteren Job der `crontab` hinzu. Hier sind Kentnisse des `VI` Editors Voraussetzung (http://www.linux-fuer-alle.de/bedienung-des-editors-vi). Wie im Beispiel oben über die Homematic Weboberfläche, möchten wir unser Backup **wöchentlich am Sonntag um 22 Uhr** starten. Dazu ändern wir die Tabelle mit dem Befehl `crontab -e` und fügen folgende Zeile am Ende hinzu:
 ```
 0 22 * * 0 tclsh /usr/local/gdrive/gdrive_backup.tcl >/dev/null 2>&1
 ```
 <img src="https://user-images.githubusercontent.com/26480749/32404859-a4a1fc04-c159-11e7-905c-13117137c03f.jpg" border="0">
+
+Damit ist der Cronjob eingerichtet und sollte fortan seine Dienste tun.
 
 ## 5. Parameterbeschreibung ##
 Die folgende Tabelle listet alle im TCL-Skript `gdrive_backup.tcl` verwendeten, änderbaren Parameter und deren Verwendung/Einstellungsmöglichkeiten auf.
