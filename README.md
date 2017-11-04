@@ -215,7 +215,7 @@ Nachdem die Voraussetzungen alle erfüllt sind und wir erfolgreich alle erforder
 > **Die Wichtigste Information dabei ist, dass das Skript als Parameter einfach eine kommaseparierte Liste mit allen Dateien übergeben bekommt, die auf Google Drive gespeichert werden sollen:**
 
 ### Direkter Aufruf über die Kommandozeile ###
-Wird die folgende Zeile über PuTTY direkt auf der Homematic CCU2 ausgeführt, werden die Dateien *temperatur.csv*, *luftfeuchte.log* und *fenster.txt* aus dem Verzeichnis */usr/local/logs* auf Google Drive hochgeladen. Die Angabe der Dateien hat immer mit komplettem Pfad zu erfolgen. 
+Werden die folgenden Befehle über PuTTY direkt auf der Homematic CCU2 ausgeführt, erfolgt ein Backup der Dateien `temperatur.csv`, `luftfeuchte.log` und `fenster.txt` aus dem Verzeichnis `/usr/local/logs` auf Google Drive. Die Angabe der Dateien hat immer mit kompletter Pfadangabe zu erfolgen. 
 ```
 # cd /usr/local/gdrive
 # tclsh ./gdrive_backup.tcl /usr/local/logs/temperatur.csv,/usr/local/logs/luftfeuchte.log,/usr/local/logs/fenster.txt
@@ -245,7 +245,25 @@ dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("tclsh /usr/local/gdrive/gdriv
 ```
 
 ### Backup als Cronjob ###
-Möchte man um das Backup-Skript herum keine zusätzliche Logik, die eine Ausführung als Programm in der Homematic CCU2 Weboberfläche erfordert, ist der beste Weg das TCL-Skript als einen Cronjob zu definieren. 
+Wird *keine* zusätzliche Logik des Smart-Home-Systems rund um den Programmaufruf herum benötigt, ist der beste Weg, das Backup auszuführen, der Aufruf über Unix-Boardmittel: **Cronjobs**. Hier ist man auf Betriebssystemebene und hat keinen weiteren Homematic Overhead. Möchte man das Skript per Cronjob ausführen, ist der Parameter `backupFilesList` im TCL-Skript gedacht und hilfreich. Die Angabe der zu sichernden Dateien sollte in dieser Liste erfolgen. Dem Aufruf des TCL-Skriptes in der Crontab müssen dann keine Argumente mitgegeben werden, was den Aufruf verkürzt, einfache Lesbarkeit garantiert - aber vor allem (Syntax-)Fehler vermeidet.
+Möchten wir unsere 3 Dateien aus dem bisherigen Beispiel per Cronjob sichern, gehen wir wie folgt vor:
+Wir öffnen das TCL-Skript auf unserer Homematic CCU2 und suchen den Parameter `backupFilesList`. Dieser sollte standardmäßig eine leere Liste enthalten: `[list {}]`, da die Dateien per Argument übergeben werden. Das wollen wir nun ändern, dazu initialisieren wir die Liste mit unseren gewünschten Dateien, speichern das Skript und laden es erneut auf die Homematic CCU2:
+```
+set backupFilesList [list {"/usr/local/logs/temperatur.csv" "/usr/local/logs/luftfeuchte.log" "/usr/local/logs/fenster.txt" }]
+```
+<img src="https://user-images.githubusercontent.com/26480749/32404704-8da91874-c155-11e7-9803-5051e854017a.JPG" border="0">
+
+Nun können wir das Backup-Skript ohne Parameter aufrufen, da es die Dateien aus dieser Liste verwendet. Um das Backup per Cronjob auszuführen, loggen wir uns mit PuTTY auf der Homematic CCU2 ein und schauen uns erstmal alle Cronjobs an, die auf der Homematic CCU2 aktuell laufen. Diese stehen in der "Cronjob Tabelle", kurz `crontab` und lassen sich mit dem Parameter `-l` anzeigen:
+```
+# crontab -l
+```
+<img src="https://user-images.githubusercontent.com/26480749/32404776-8d29790a-c157-11e7-9137-1be201245814.jpg" border="0">
+
+Nun fügen wir unser Backup als weiteren Job der `crontab` hinzu. Hier sind Kentnisse des `VI` Editors Voraussetzung (http://www.linux-fuer-alle.de/bedienung-des-editors-vi). Wie im Beispiel oben über die Homematic Weboberfläche, möchten wir unser Backup **wöchentlich am Sonntag um 22 Uhr** starten. Dazu fügen wir folgende Zeile in der `crontab` hinzu:
+```
+0 22 * * 0 tclsh /usr/local/gdrive/gdrive_backup.tcl >/dev/null 2>&1
+```
+<img src="https://user-images.githubusercontent.com/26480749/32404859-a4a1fc04-c159-11e7-905c-13117137c03f.jpg" border="0">
 
 ## 5. Parameterbeschreibung ##
 Die folgende Tabelle listet alle im TCL-Skript `gdrive_backup.tcl` verwendeten, änderbaren Parameter und deren Verwendung/Einstellungsmöglichkeiten auf.
