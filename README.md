@@ -3,7 +3,7 @@ Dieses Skript ermöglicht eine zeitgesteuerte Datensicherung von Logfiles der Ho
 
 <table>
  <tr>
-   <td width="50%">Homematic CCU2 Programm:
+   <td width="50%">Homematic CCU2 Programmverknüpfung:
 <img src="https://user-images.githubusercontent.com/26480749/32405601-c8c126fa-c168-11e7-8f3b-618c991b8edf.JPG" border="0">
     </td>
   <td width="50%">Gesicherte Logs auf Google Drive:
@@ -247,7 +247,7 @@ string backupFiles = "/usr/local/logs/temperatur.csv,
                       /usr/local/logs/fenster.txt";
 system.Exec ("tclsh /usr/local/gdrive/gdrive_backup.tcl "# backupFiles, &stdout, &stderr);
 ```
-Alternativ kann man auch den Timer des CuXD verwenden, sofern das entsprechende Gerät auf dem CuXD angelegt wurde:
+Alternativ kann man auch einen Timer des CuXD verwenden, sofern das entsprechende Gerät auf dem CuXD angelegt wurde:
 ```
 string backupFiles = "/usr/local/logs/temperatur.csv,
                       /usr/local/logs/luftfeuchte.log,
