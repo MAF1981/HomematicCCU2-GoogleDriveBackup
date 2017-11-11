@@ -5,17 +5,17 @@
 	set google_client_id ""
 	set google_client_secret ""
 	set google_refresh_token "";
-	set google_drive_backup_folder "";
-
-	# Erhaltener "Device Code" nach Bestaetigung des User Codes auf  https://www.google.com/device
 	set homematic_device_code ""
+
+	#Name des Backup Verzeichnisses (aus URL) unterhalb Google Drive Root
+	set google_drive_backup_folder "";
  
 	# Liste aller Dateien mit vollstaendiger Pfadangabe, deren Backup auf GoogleDrive gespeichert werden soll.
 	# Wenn die Dateiliste dem Programm als argv0 uebergeben wird, kann der Parameter leer bleiben.
 	set backupFilesList [list {}]
 	
 	# Erstellt im oben angegebenen "google_drive_backup_folder" einen zusaetzlichen Unterordner mit dem aktuellen
-	# Backup Datum als Namen und laed alle Dateien aus "backupFilesList" in diesen Ordner
+	# Backup Datum als Namen (Format: YYYY-MM-DD) und laed alle Dateien aus "backupFilesList" in diesen Ordner
 	set createDatetimeFolderInBackupFolder 1
 	
 	#############################################################################
@@ -101,9 +101,7 @@
 	# Funktion: getRefreshToken
 	# Fordert einen neuen getRefreshToken an.
 	#
-	# !! Diese Funktion ist fuer die eigentliche Backup-Prozedur nicht 
-	# relevant sondern wird nur fuer die initiale Ermittlung des 
-	# Refresh-Tokens benoetigt.
+	# !! Diese Funktion ist fuer die eigentliche Backup-Prozedur nicht relevant
 	#
 	# @PARAM - keine Parameter
 	# @RETURN - Komplette Response
@@ -135,9 +133,7 @@
 	# Funktion: requestDeviceCode
 	# Fordert einen neuen requestDeviceCode an.
 	#
-	# !! Diese Funktion ist fuer die eigentliche Backup-Prozedur nicht 
-	# relevant sondern wird nur fuer die Ermittlung von Device-Code und
-	# User-Code benoetigt.
+	# !! Diese Funktion ist fuer die eigentliche Backup-Prozedur nicht relevant
 	#
 	# @PARAM - keine Parameter
 	# @RETURN - Komplette Response
@@ -249,6 +245,11 @@
 		return $neueFolderId
 	}
 	
+	proc checkFiles {} {
+		global backupFilesList
+		
+	}
+	
 	######################################################################
 	# Funktion: doGoogleDriveBackup
 	# Laed alle in der Liste (backupFilesList) angegebenen Dateien in das
@@ -275,7 +276,7 @@
 		
 		#Pruefe ob ein zusaetzlicher Unterordner mit dem Zeitstempel als Namen erstellt werden soll
 		if {$createDatetimeFolderInBackupFolder == 1} {
-			set folderName [clock format $systemTime -format {%Y-%m-%d}]
+			set folderName [clock format $systemTime -format {%Y-%m-%d_%H:%M}]
 			set backupfolder [createSubfolder $accessToken $google_drive_backup_folder $folderName]
 			if { [string length $backupfolder] == 0} {
 				# Konnte aus irgenwelchen Gruenden das Unterverzeichnis nicht erstellt werden, 
@@ -292,6 +293,12 @@
 
 		# Fuer alle in der Liste angegebenen Dateien...
 		foreach backupFile $backupFilesList {
+			#Ueberpruefe ob die angegebene Datei existiert
+			if { [file exists $backupFile] == 0 || [file isfile $backupFile] == 0} {
+				#Datei nicht gefunden, lese naechste Datei...
+				puts "Datei $backupFile konnte nicht gefunden werden oder ist keine Datei!"
+				continue
+			}
 			set fileName [file tail $backupFile]
 
 			set fileMetaData [format \
@@ -310,7 +317,7 @@
 		}
 	}
 
-	################## Starte Skript ##################
+	###### Starte Skript ######
 	
 	if { $argc == 1 && [lindex $argv 0] == "-dc" } {
 			requestDeviceCode
@@ -341,6 +348,8 @@
 		# Keine Argumente -> verwende die Dateien aus backupFilesList
 	}
 
-	# Starte letzendlich das Backup:
-	doGoogleDriveBackup $currentFileAccessToken	
-	puts "Google Drive Backup beendet!"	
+	doGoogleDriveBackup $currentFileAccessToken
+	puts "Google Drive Backup beendet!"
+	#getAccessToken
+	#createBackup	
+	
